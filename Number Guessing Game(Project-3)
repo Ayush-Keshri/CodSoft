@@ -1,0 +1,79 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+
+using namespace std;
+
+int main() {
+    srand(time(0)); // Seed random number generator
+    string key;
+
+    do {
+        cout << "-------------------------------------" << endl;
+        cout << "Welcome! To number guessing game.." << endl;
+        cout << "-------------------------------------" << endl;
+
+        int secretNumber = rand() % 101; // Generates number between 0 and 100
+        int attempts, a;
+
+        do {
+            cout << "Choose the difficulty level (Easy:1//Medium:2//Hard:3): ";
+            cin >> a;
+
+            switch (a) {
+                case 1:
+                    attempts = 10;
+                    break;
+                case 2:
+                    attempts = 7;
+                    break;
+                case 3:
+                    attempts = 3;
+                    break;
+                default:
+                    cout << "Invalid input" << endl;
+                    attempts = -1;
+            }
+        } while (a < 1 || a > 3);
+
+        cout << "Range of number is between (1-100) and You have a total of " << attempts << " attempts" << endl;
+
+        while (attempts > 0) {
+            cout << "Enter n: ";
+            int n;
+            cin >> n;
+
+            if (n < 1 || n > 100) {
+                cout << "Invalid Input!" << endl;
+                continue;
+            }
+
+            if (n == secretNumber) {
+                cout << "You won! 🏆" << endl;
+                break;
+            } else {
+                if (n < secretNumber) {
+                    cout << "Too Low! 🔻" << endl;
+                } else {
+                    cout << "Too High! 🔺" << endl;
+                }
+                attempts--;
+                cout << "You have " << attempts << " attempts remaining" << endl;
+            }
+        }
+
+        if (attempts == 0) {
+            cout << "You lose! 😔" << endl;
+            cout << "The correct number was " << secretNumber << endl;
+        }
+
+        cout << "Do you want to play again? (yes:1, no: press any key to exit): ";
+        cin >> key;
+
+    } while (key == "1");
+
+    cout << "Thanks for playing! ✌" << endl;
+
+    return 0;
+}
