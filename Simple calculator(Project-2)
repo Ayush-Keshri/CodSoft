@@ -1,0 +1,84 @@
+#include <iostream>
+#include <limits>
+
+using namespace std;
+
+// Function to get validated integer input
+void getValidInteger(double &num) {
+    while (true) {
+        cin >> num;
+        if (cin.fail() || num != static_cast<int>(num)) {
+            cout << "Invalid input. Please enter an integer: ";
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        } else {
+            break;
+        }
+    }
+}
+
+// Function to get a valid operator
+char getValidOperator() {
+    char op;
+    while (true) {
+        cout << "Enter an operator (+, -, *, /): ";
+        cin >> op;
+        if (op == '+' || op == '-' || op == '*' || op == '/') {
+            return op;
+        } else {
+            cout << "Invalid operator. Please select again.\n";
+        }
+    }
+}
+
+int main() {
+    double num1, num2;
+    char ch;
+    int choice;
+
+    do {
+        cout << "Enter first number (integer only): ";
+        getValidInteger(num1);
+
+        cout << "Enter second number (integer only): ";
+        getValidInteger(num2);
+
+        ch = getValidOperator();  // get validated operator
+
+        switch (ch) {
+            case '+':
+                cout << "Result: " << num1 + num2 << "\n";
+                break;
+            case '-':
+                cout << "Result: " << num1 - num2 << "\n";
+                break;
+            case '*':
+                cout << "Result: " << num1 * num2 << "\n";
+                break;
+            case '/':
+                if (num2 != 0) {
+                    cout << "Result: " << num1 / num2 << "\n";
+                } else {
+                    cout << "Error: Division by zero is not allowed.\n";
+                }
+                break;
+        }
+
+        cout << "\nChoose an option:\n";
+        cout << "1. Continue using calculator\n";
+        cout << "2. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        while (cin.fail() || (choice != 1 && choice != 2)) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid choice. Please enter 1 to continue or 2 to exit: ";
+            cin >> choice;
+        }
+
+    } while (choice == 1);
+
+    cout << "Calculator exited.\n";
+    return 0;
+}
